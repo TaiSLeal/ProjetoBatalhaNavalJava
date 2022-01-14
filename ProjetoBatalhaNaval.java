@@ -14,7 +14,7 @@ public class ProjetoBatalhaNaval {
 
      static Scanner scan = new Scanner(System.in);
 
-     static int linha, acertoJogador=0, acertoComputador=0;
+     static int linha, acertoJogador=0, acertoComputador=0, coluna;
 
      static Random numeroRandom = new Random();
 
@@ -82,70 +82,106 @@ public class ProjetoBatalhaNaval {
 
         if (input.equalsIgnoreCase("A")) {
             linha = 1;
-        }
-        if (input.equalsIgnoreCase("B")) {
+
+        } else if (input.equalsIgnoreCase("B")) {
             linha = 2;
-        }
 
-        if (input.equalsIgnoreCase("C")) {
+        } else if (input.equalsIgnoreCase("C")) {
             linha = 3;
-        }
 
-        if (input.equalsIgnoreCase("D")) {
+        }else if (input.equalsIgnoreCase("D")) {
             linha = 4;
-        }
 
-        if (input.equalsIgnoreCase("E")) {
+        } else if (input.equalsIgnoreCase("E")) {
             linha = 5;
-        }
 
-        if (input.equalsIgnoreCase("F")) {
+        } else if (input.equalsIgnoreCase("F")) {
             linha = 6;
-        }
 
-        if (input.equalsIgnoreCase("G")) {
+        }else if (input.equalsIgnoreCase("G")) {
             linha = 7;
-        }
-        if (input.equalsIgnoreCase("H")) {
+
+        }else if (input.equalsIgnoreCase("H")) {
             linha = 8;
-        }
-        if (input.equalsIgnoreCase("I")) {
+
+        }else if (input.equalsIgnoreCase("I")) {
             linha = 9;
-        }
-        if (input.equalsIgnoreCase("J")) {
+
+        }else if (input.equalsIgnoreCase("J")) {
             linha = 10;
+
+        }else{
+            linha = 100;
         }
 
     }
 
 
-    public static void disposicaoManualDosNavios (){
+    public static void disposicaoManualDosNavios () {
 
         System.out.print(" Esse é seu Tabuleiro :");
         System.out.println();
 
-        impressaoDoTabuleiro ();
+        impressaoDoTabuleiro();
+
+
 
         for (int i = 1; i < 11; i++) {
 
-            System.out.println("Escolha a linha (representada pelas letras (A-J)) onde deseja colocar o " + i + "° navio:");
 
 
-            dicionarioLetrasEmNumeros ();
+            boolean linhaValida = false;
 
-            System.out.println("Escolha a coluna (representada pelos números) onde deseja colocar o " + i + "° navio:");
-            int coluna = scan.nextInt();
+            while (!linhaValida) {
 
-            coluna = coluna + 1;
+                System.out.println("Escolha a linha (representada pelas letras (A-J)) onde deseja colocar o " + i + "° navio:");
 
-            tabuleiro[linha][coluna] = "N";
-            jogador[linha][coluna] = 1;
+
+                dicionarioLetrasEmNumeros();
+
+                if (linha >= 1 && linha <= 10) {
+
+                    linhaValida = true;
+
+                } else {
+                    System.out.println("opção invalida, tente novamente");
+                }
+
+            }
+
+            boolean colunaValida = false;
+
+            while (!colunaValida) {
+                try {
+                    input = new Scanner(System.in);
+
+                    System.out.println("Escolha a coluna (representada pelos números (0-9)) onde deseja colocar o " + i + "° navio:");
+
+                    int coluna = input.nextInt();
+
+                    if (coluna >= 0 && coluna <= 9) {
+                        colunaValida = true;
+
+                    } else {
+                        System.out.println("Opção inválida, tente novamente");
+                    }
+
+                } catch (InputMismatchException erro) {
+                    System.out.println("Opção invalida, tente novamente");
+                }
+
+
+                coluna = coluna + 1;
+
+                tabuleiro[linha][coluna] = "N";
+                jogador[linha][coluna] = 1;
+
+            }
+
+            impressaoDoTabuleiro();
 
         }
-
-        impressaoDoTabuleiro ();
-
-        }
+    }
 
     public static void disposicaoAleatoriaDosNavios () {
 
@@ -219,15 +255,47 @@ public class ProjetoBatalhaNaval {
 
     public static void tirosJogador () {
 
-        System.out.println("Escolha a linha (representada pelas letras maiúsculas) onde deseja atirar:");
+        boolean linhaValida = false;
 
-        dicionarioLetrasEmNumeros ();
+        while(!linhaValida) {
 
+            System.out.println("Escolha a linha (representada pelas letras (A-J)) onde deseja atirar:");
+
+            dicionarioLetrasEmNumeros();
+
+            if(linha >= 1 && linha <=10){
+
+                linhaValida = true;
+
+            }else{
+                System.out.println("opção invalida, tente novamente");
+            }
+
+        }
         System.out.println();
 
-        System.out.println("Escolha a coluna (representada pelos números) onde deseja atirar:");
+        boolean colunaValida = false;
 
-        int coluna = scan.nextInt();
+        while(!colunaValida) {
+            try {
+
+                input = new Scanner(System.in);
+
+                System.out.println("Escolha a coluna (representada pelos números (0-9)) onde deseja atirar:");
+
+                coluna = input.nextInt();
+
+                if (coluna >= 0 && coluna <= 9) {
+                    colunaValida = true;
+
+                } else {
+                    System.out.println("Opção inválida, tente novamente");
+                }
+            } catch (InputMismatchException erro) {
+                System.out.println("Opção inválida, tente novamente");
+            }
+        }
+
 
         coluna = coluna + 1;
 
@@ -287,7 +355,10 @@ public class ProjetoBatalhaNaval {
 
 
               // Placar Computador x Jogador
-
+              System.out.println(" * = Tiro certeiro ");
+              System.out.println(" - = Tiro na água ");
+              System.out.println(" X = Tiro certeiro com navio posicionado ");
+              System.out.println(" n = Tiro na água  com navio posicionado ");
               System.out.println("Computador acertou: "+acertoComputador+" navios");
               System.out.println("Você acertou: "+acertoJogador+" navios");
 
