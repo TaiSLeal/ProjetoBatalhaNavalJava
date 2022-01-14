@@ -157,7 +157,7 @@ public class ProjetoBatalhaNaval {
 
                     System.out.println("Escolha a coluna (representada pelos números (0-9)) onde deseja colocar o " + i + "° navio:");
 
-                    int coluna = input.nextInt();
+                    coluna = input.nextInt();
 
                     if (coluna >= 0 && coluna <= 9) {
                         colunaValida = true;
@@ -169,14 +169,15 @@ public class ProjetoBatalhaNaval {
                 } catch (InputMismatchException erro) {
                     System.out.println("Opção invalida, tente novamente");
                 }
-
+            }
 
                 coluna = coluna + 1;
+                System.out.println(coluna);
 
                 tabuleiro[linha][coluna] = "N";
                 jogador[linha][coluna] = 1;
 
-            }
+
 
             impressaoDoTabuleiro();
 
