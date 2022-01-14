@@ -172,7 +172,7 @@ public class ProjetoBatalhaNaval {
             }
 
                 coluna = coluna + 1;
-                System.out.println(coluna);
+
 
                 tabuleiro[linha][coluna] = "N";
                 jogador[linha][coluna] = 1;
